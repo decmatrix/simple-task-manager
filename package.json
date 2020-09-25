@@ -1,0 +1,19 @@
+{
+  "name": "os-lab-1",
+  "version": "1.0.0",
+  "description": "Operation Systems lab #1",
+  "main": "runProcessor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bohdan-sokolovskyi/os-lab-1.git"
+  },
+  "author": "Bohdan Sokolovskyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bohdan-sokolovskyi/os-lab-1/issues"
+  },
+  "homepage": "https://github.com/bohdan-sokolovskyi/os-lab-1#readme"
+}
