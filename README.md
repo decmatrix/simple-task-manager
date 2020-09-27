@@ -11,3 +11,5 @@ run: ./run.sh
 out: result.log
 
 Result of working program (10 tasks):
+
+![result picture](https://github.com/bohdan-sokolovskyi/os-lab-1/blob/master/screen-result.png)
