@@ -1,6 +1,8 @@
 # os-lab-1
 Operation Systems lab #1
 
+Needed software: Node.JS
+
 Scheduling processes, algorithms:
 - Robin Round (RR)
 - Shortest Remaining Time First (SRTF)
