@@ -12,6 +12,8 @@ let q1 = [];
 let q2 = [];
 
 let completedTasksList = [];
+let sumTotalTime = 0;
+let sumWaitingTime = 0;
 let tasksList = TaskFactory.generateRandomTasks(SIZE_OF_GENERATED_TASKS, MIN_EXE_TIME, MAX_EXE_TIME);
 let currentTask = null;
 
@@ -82,6 +84,10 @@ function logInfoAboutCompletedTask(finishExecutionTime) {
     let startExecutionTime = currentTask.getStartExecutionTime();
     let arriveTime = currentTask.getArriveTime(); 
     let waitingTime = startExecutionTime - arriveTime;
+    let totalTime = exeTime + waitingTime;
+
+    sumWaitingTime += waitingTime;
+    sumTotalTime += totalTime;
 
     console.log("%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", 
                 currentTask.getId(),
@@ -90,7 +96,7 @@ function logInfoAboutCompletedTask(finishExecutionTime) {
                 startExecutionTime,
                 finishExecutionTime,
                 waitingTime,
-                exeTime + waitingTime);
+                totalTime);
 }
 
 function executeTaskPerUnitTime(currentTime) {
@@ -129,7 +135,9 @@ function executeTaskPerUnitTime(currentTime) {
         currentTime++;
     } while(!isEnd());
 
-    console.log("Last unit time:", currentTime - 1);
+    console.log("Avarage waiting time: ", sumWaitingTime / completedTasksList.length);
+    console.log("Avarage total time: ", sumTotalTime / completedTasksList.length);
+    console.log("Sumarized time:", currentTime - 1);
     console.log("Tasks completed: ", completedTasksList.length);
     console.log("Processor was finished work...");
 })();
