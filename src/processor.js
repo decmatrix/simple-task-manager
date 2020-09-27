@@ -77,6 +77,22 @@ function pushNewTaskIfArrived(currentTime) {
     }
 }
 
+function logInfoAboutCompletedTask(finishExecutionTime) {
+    let exeTime = currentTask.getExeTime();
+    let startExecutionTime = currentTask.getStartExecutionTime();
+    let arriveTime = currentTask.getArriveTime(); 
+    let waitingTime = startExecutionTime - arriveTime;
+
+    console.log("%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", 
+                currentTask.getId(),
+                arriveTime,
+                exeTime,
+                startExecutionTime,
+                finishExecutionTime,
+                waitingTime,
+                exeTime + waitingTime);
+}
+
 function executeTaskPerUnitTime(currentTime) {
     if(currentTask != null) {
 
@@ -84,15 +100,7 @@ function executeTaskPerUnitTime(currentTime) {
 
         if(currentTask.isCompleted()) {
 
-            console.log("%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", 
-                currentTask.getId(),
-                currentTask.getArriveTime(),
-                currentTask.getExeTime(),
-                currentTask.getStartExecutionTime(),
-                currentTime,
-                -1, // waiting ?
-                -1); // total ?
-            
+            logInfoAboutCompletedTask(currentTime);   
             moveTaskTo(completedTasksList, currentTask);
         } else if(currentTask.isReachedTheLimitOfExeTime() && 
            currentTask.limitExeTimeEqualTo(EXE_TIME_LIMIT_Q0)) {
@@ -121,7 +129,7 @@ function executeTaskPerUnitTime(currentTime) {
         currentTime++;
     } while(!isEnd());
 
-    console.log("Last time unit:", currentTime);
+    console.log("Last unit time:", currentTime - 1);
     console.log("Tasks completed: ", completedTasksList.length);
     console.log("Processor was finished work...");
 })();
