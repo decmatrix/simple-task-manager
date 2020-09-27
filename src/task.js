@@ -36,6 +36,7 @@ class TaskFactory {
 
     setTimeExeLimit(limitExeTime) {
         this.#limitExeTime = limitExeTime;
+        this.#isReachedLimitOfExeTime = false;
     }
 
     resetTimeExeLimit() {
@@ -55,7 +56,7 @@ class TaskFactory {
     }
 
     limitExeTimeEqualTo(timeLimit) {
-        return this.#limitExeTime = this.limitExeTime;
+        return this.#limitExeTime == timeLimit;
     }
 
     executePerUnitTime() {

@@ -1,6 +1,6 @@
 const TaskFactory = require("./task.js");
 
-const SIZE_OF_GENERATED_TASKS = 1000;
+const SIZE_OF_GENERATED_TASKS = 10000;
 const MIN_EXE_TIME = 10;
 const MAX_EXE_TIME = 200;
 
@@ -20,7 +20,7 @@ function getTaskWithMinimalRestOfExeTime() {
     let taskWithMinimalRestTime = null;
 
     let currentRestOfExeTime;
-    for(let task in q2) {
+    for(let task of q2) {
         currentRestOfExeTime = task.getExecutionTime();
 
         if(currentRestOfExeTime <= minimalRestOfExeTime) {
@@ -36,19 +36,21 @@ function setNextTaskIfNeed() {
     if(q0.length != 0) {
         if(currentTask == null) {
             currentTask = q0.shift();
-            currentTask.setTimeExeLimit(EXE_TIME_LIMIT_Q0);
         }
     } else if(q1.length != 0) {
         if(currentTask == null) {
             currentTask = q1.shift();
-            currentTask.setTimeExeLimit(EXE_TIME_LIMIT_Q1);
         }
     } else if(q2.length != 0) {
-        let nextTask = getTaskWithMinimalRestOfExeTime();
+        if(currentTask == null) {
+            currentTask = q2.shift();
+        } else {
+            let nextTask = getTaskWithMinimalRestOfExeTime();
 
-        if(nextTask != null) {
-            currentTask = nextTask;
-        }
+            if(nextTask != null) {
+                currentTask = nextTask;
+            }
+        }   
     }
 }
 
@@ -67,7 +69,10 @@ function isEnd() {
 
 function pushNewTaskIfArrived(currentTime) {
     if(tasksList.length != 0 && tasksList[0].isArrived(currentTime)) {
-        q0.push(tasksList.shift());
+        let nextNewTask = tasksList.shift();
+        nextNewTask.setTimeExeLimit(EXE_TIME_LIMIT_Q0);
+
+        q0.push(nextNewTask);
     }
 }
 
@@ -77,15 +82,16 @@ function executeTaskPerUnitTime() {
         currentTask.executePerUnitTime();
 
         if(currentTask.isCompleted()) {
+            
             moveTaskTo(completedTasksList, currentTask);
         } else if(currentTask.isReachedTheLimitOfExeTime() && 
            currentTask.limitExeTimeEqualTo(EXE_TIME_LIMIT_Q0)) {
-
+    
             currentTask.setTimeExeLimit(EXE_TIME_LIMIT_Q1);
             moveTaskTo(q1, currentTask);
         } else if(currentTask.isReachedTheLimitOfExeTime() &&
             currentTask.limitExeTimeEqualTo(EXE_TIME_LIMIT_Q1)) {
-        
+
             moveTaskTo(q2, currentTask);
         }
     }
