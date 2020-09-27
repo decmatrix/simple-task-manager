@@ -9,8 +9,8 @@ Scheduling processes, algorithms:
 
 SD: feedback queue
 
-run: ./run.sh
-out: result.log
+- run: ./run.sh
+- out: result.log
 
 Result of working program (10 tasks):
 
