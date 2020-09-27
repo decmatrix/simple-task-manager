@@ -1,6 +1,6 @@
 const TaskFactory = require("./task.js");
 
-const SIZE_OF_GENERATED_TASKS = 10000;
+const SIZE_OF_GENERATED_TASKS = 10;
 const MIN_EXE_TIME = 10;
 const MAX_EXE_TIME = 200;
 
@@ -31,11 +31,12 @@ function getTaskWithMinimalRestOfExeTime() {
     return taskWithMinimalRestTime;
 }
 
-function setNextTaskIfNeed() {
+function setNextTaskIfNeed(currentTime) {
 
     if(q0.length != 0) {
         if(currentTask == null) {
             currentTask = q0.shift();
+            currentTask.setStartExecutionTime(currentTime);
         }
     } else if(q1.length != 0) {
         if(currentTask == null) {
@@ -76,12 +77,21 @@ function pushNewTaskIfArrived(currentTime) {
     }
 }
 
-function executeTaskPerUnitTime() {
+function executeTaskPerUnitTime(currentTime) {
     if(currentTask != null) {
 
         currentTask.executePerUnitTime();
 
         if(currentTask.isCompleted()) {
+
+            console.log("%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", 
+                currentTask.getId(),
+                currentTask.getArriveTime(),
+                currentTask.getExeTime(),
+                currentTask.getStartExecutionTime(),
+                currentTime,
+                -1, // waiting ?
+                -1); // total ?
             
             moveTaskTo(completedTasksList, currentTask);
         } else if(currentTask.isReachedTheLimitOfExeTime() && 
@@ -100,16 +110,18 @@ function executeTaskPerUnitTime() {
 // entry point
 (function() {
     console.log("Run processor...");
+    console.log("id\tarrive t\texecute t\tstart t \tfinish t\twaiting t\ttotal t\n");
 
     let currentTime = 0;
     do {
         pushNewTaskIfArrived(currentTime);
-        setNextTaskIfNeed();
-        executeTaskPerUnitTime();
+        setNextTaskIfNeed(currentTime);
+        executeTaskPerUnitTime(currentTime);
 
         currentTime++;
     } while(!isEnd());
 
+    console.log("Last time unit:", currentTime);
     console.log("Tasks completed: ", completedTasksList.length);
     console.log("Processor was finished work...");
 })();

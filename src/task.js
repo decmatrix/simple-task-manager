@@ -7,6 +7,7 @@ class TaskFactory {
     #executionTime = 0;
     #limitExeTime = null;
     #isReachedLimitOfExeTime = false;
+    #startExecutionTime = null;
 
     static #currentId = 0;
     static #currentArriveTime = 0;
@@ -30,8 +31,24 @@ class TaskFactory {
         return this.#executionTime;
     }
 
-    getTaskId() {
+    getId() {
         return this.#id;
+    }
+
+    getArriveTime() {
+        return this.#arriveTime;
+    }
+
+    getExeTime() {
+        return this.#exeTime;
+    }
+
+    getStartExecutionTime() {
+        return this.#startExecutionTime;
+    }
+
+    setStartExecutionTime(startExecutionTime) {
+        this.#startExecutionTime = startExecutionTime;
     }
 
     setTimeExeLimit(limitExeTime) {
