@@ -5,5 +5,9 @@ Scheduling processes, algorithms:
 - Robin Round (RR)
 - Shortest Remaining Time First (SRTF)
 
+SD: feedback queue
+
 run: ./run.sh
 out: result.log
+
+Result of working program (10 tasks):
