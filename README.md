@@ -1,4 +1,4 @@
-# os-lab-1
+# Simple task manager
 Operation Systems lab #1
 
 Needed software: Node.JS
